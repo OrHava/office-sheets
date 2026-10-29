@@ -12,6 +12,10 @@ An Excel-style spreadsheet that runs in the browser.
 - Conditional formatting (greater/less/equal/contains, color scale, data bars), data validation dropdowns, checkboxes, cell notes
 - Sort A→Z/Z→A (auto-detects header), filter rows, remove duplicates, trim whitespace
 - Charts (bar, line, area, pie) that live-update, drag & resize, export SVG
+- **AI assistant** (your own Anthropic/OpenAI key): formulas from plain words, explain a formula, clean data, insights, generate tables — results applied straight into cells
+- Pivot tables, multi-column sort, split text to columns, paste transposed, goal seek, freeze at any cell, protect sheet, import CSV from URL, column statistics
+- Dynamic arrays that spill: FILTER, SORT, UNIQUE, SEQUENCE, TRANSPOSE; SPARKLINE mini-charts in cells; HYPERLINK; MAXIFS/MINIFS/AVERAGEIFS, DATEDIF, IRR, RATE, NPER…
+- Formula autocomplete while typing, colored highlighting of referenced cells, click cells to insert references into a formula
 - Multiple sheets per file, multiple files, autosave, undo/redo, find & replace, keyboard navigation like Excel, context menus, dark mode, RTL
 - Open `.xlsx` / `.csv` / `.tsv`; download as **Excel (.xlsx)** with formulas and number formats, CSV, or JSON
 
