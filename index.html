@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
 <title>Sheets</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -31,7 +31,7 @@ header{background:var(--panel);border-bottom:1px solid var(--line);padding:6px 1
 #fx{flex:1;font-family:var(--mono);border:1px solid var(--line);border-radius:6px;padding:5px 8px;background:var(--panel)}
 main{flex:1;overflow:hidden;position:relative;display:flex;flex-direction:column}
 .gridWrap{flex:1;overflow:auto;position:relative;background:var(--panel)}
-table.grid{border-collapse:separate;border-spacing:0;table-layout:fixed;font-size:13px;user-select:none}
+table.grid{touch-action:pan-x pan-y;border-collapse:separate;border-spacing:0;table-layout:fixed;font-size:13px;user-select:none}
 table.grid th,table.grid td{border-right:1px solid var(--grid);border-bottom:1px solid var(--grid);padding:0 5px;height:24px;overflow:hidden;white-space:nowrap;text-overflow:clip;position:relative}
 table.grid th{background:var(--head);color:var(--muted);font-weight:500;text-align:center;position:sticky;top:0;z-index:3;font-size:12px}
 table.grid td.rh{background:var(--head);color:var(--muted);text-align:center;position:sticky;left:0;z-index:2;font-size:12px;width:46px}
@@ -43,9 +43,9 @@ table.grid td.c.cur{outline:2px solid var(--accent);outline-offset:-2px;z-index:
 table.grid td.c.err{color:#c43c3c}
 table.grid td.c.num{text-align:right;font-variant-numeric:tabular-nums}
 table.grid td.c.cut{outline:2px dashed var(--accent);outline-offset:-2px}
-table.grid td.c .fill{position:absolute;right:-4px;bottom:-4px;width:8px;height:8px;background:var(--accent);cursor:crosshair;border:1px solid #fff;z-index:2}
-table.grid th .rs{position:absolute;right:-3px;top:0;width:6px;height:100%;cursor:col-resize}
-table.grid td.rh .rs{position:absolute;left:0;bottom:-3px;height:6px;width:100%;cursor:row-resize}
+table.grid td.c .fill{touch-action:none;position:absolute;right:-4px;bottom:-4px;width:8px;height:8px;background:var(--accent);cursor:crosshair;border:1px solid #fff;z-index:2}
+table.grid th .rs{touch-action:none;position:absolute;right:-3px;top:0;width:6px;height:100%;cursor:col-resize}
+table.grid td.rh .rs{touch-action:none;position:absolute;left:0;bottom:-3px;height:6px;width:100%;cursor:row-resize}
 #editor{position:absolute;display:none;border:2px solid var(--accent);background:var(--panel);color:var(--ink);padding:0 4px;font:13px var(--ui);outline:none;z-index:5;min-width:60px;white-space:nowrap;line-height:22px}
 .tabs{background:var(--panel);border-top:1px solid var(--line);display:flex;align-items:center;gap:2px;padding:0 8px;height:34px;overflow-x:auto}
 .tabs button{border-radius:6px 6px 0 0;padding:7px 14px;font-size:13px;color:var(--muted);border:1px solid transparent;border-bottom:0}
@@ -64,12 +64,27 @@ dialog .row{display:flex;gap:10px}
 .fnlist{max-height:300px;overflow:auto;font-size:13px}.fnlist div{padding:6px 4px;border-bottom:1px solid var(--line)}.fnlist b{font-family:var(--mono)}
 .toast{position:fixed;bottom:48px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:200}.toast.show{opacity:1}
 .cf-swatch{display:inline-block;width:12px;height:12px;border-radius:2px;vertical-align:middle;margin-right:4px}
+@media (max-width:900px){
+  body{padding-top:env(safe-area-inset-top)}
+  header{padding:6px 8px;gap:6px;overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none}header::-webkit-scrollbar{display:none}
+  .brand span{display:none}#title{min-width:110px;width:130px;flex:none}.status{display:none}
+  .menu > button{white-space:nowrap}.menu ul{position:fixed;left:8px;right:8px;top:auto;max-height:70vh;overflow:auto;font-size:15px}
+  .toolbar{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding:4px 6px}.toolbar::-webkit-scrollbar{display:none}.toolbar .g{flex:none}.toolbar button{min-width:36px;height:36px;font-size:16px}
+  .fbar{padding:4px 8px}#ref{width:64px}#fx{font-size:16px}
+  table.grid th,table.grid td{height:30px;font-size:14px}table.grid td.rh{width:36px}table.grid th.corner{width:36px}
+  table.grid td.c .fill{width:14px;height:14px;right:-7px;bottom:-7px}
+  #editor{font-size:16px;line-height:28px}
+  .tabs{height:40px}.tabs button{padding:9px 12px}.tabs .sum{font-size:11px}
+  .chartbox{width:300px;height:220px}
+  dialog{width:94vw;max-width:94vw;padding:16px}dialog input,dialog select,input,select{font-size:16px}
+  .ctx button{padding:11px 12px;font-size:15px}
+}
 @media print{header,.toolbar,.fbar,.tabs,.ctx,#editor{display:none!important}.gridWrap{overflow:visible}table.grid td.c.sel{background:none}table.grid td.c.cur{outline:none}}
 </style>
 </head>
 <body>
 <header>
-  <div class="brand"><i></i>Sheets</div>
+  <div class="brand"><i></i><span>Sheets</span></div>
   <input id="title" placeholder="Untitled spreadsheet" spellcheck="false">
   <div class="menu"><button>File</button><ul>
     <li><button data-cmd="new">New spreadsheet</button></li>
@@ -136,6 +151,7 @@ dialog .row{display:flex;gap:10px}
     <span class="colorbtn"><button title="Fill color"><svg viewBox="0 0 24 24"><path d="m19 11-8-8-8.6 8.6a2 2 0 0 0 0 2.8l5.2 5.2a2 2 0 0 0 2.8 0L19 11z"/><path d="m5 2 5 5"/><path d="M2 13h15"/><path d="M22 20a2 2 0 1 1-4 0c0-1.6 1.7-2.4 2-4 .3 1.6 2 2.4 2 4z"/></svg><span class="bar" id="bcBar" style="background:#fff2a8"></span></button><input type="color" id="bc" value="#fff2a8"></span>
     <button data-cmd="borders" title="Borders"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 12h18M12 3v18"/></svg></button></div>
   <div class="g"><button data-cmd="al-left" title="Left"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h12M3 18h16"/></svg></button><button data-cmd="al-center" title="Center"><svg viewBox="0 0 24 24"><path d="M3 6h18M6 12h12M4 18h16"/></svg></button><button data-cmd="al-right" title="Right"><svg viewBox="0 0 24 24"><path d="M3 6h18M9 12h12M5 18h16"/></svg></button><button data-cmd="wrap" title="Wrap">↵</button><button data-cmd="merge" title="Merge">⊞</button></div>
+  <div class="g"><button data-cmd="selmode" id="selModeBtn" title="Drag to select (touch)">⬚</button></div>
   <div class="g"><button data-cmd="sum" title="Sum">Σ</button><button data-cmd="chart" title="Chart"><svg viewBox="0 0 24 24"><path d="M3 21h18M7 17V9M12 17V5M17 17v-7"/></svg></button><button data-cmd="function" title="Functions">ƒx</button><button data-cmd="filter" title="Filter"><svg viewBox="0 0 24 24"><path d="M22 3H2l8 9.5V19l4 2v-8.5z"/></svg></button></div>
 </div>
 <div class="fbar"><input id="ref" value="A1" spellcheck="false"><span style="color:var(--muted)">ƒx</span><input id="fx" spellcheck="false" placeholder="Type a value or =formula"></div>
@@ -158,7 +174,7 @@ dialog .row{display:flex;gap:10px}
 /* ================= model ================= */
 const DB='sheets.books';const cmds={};
 let books=JSON.parse(localStorage.getItem(DB)||'[]'),book=null,sh=null,undoS=[],redoS=[],saveT;
-let cur={r:0,c:0},anchor={r:0,c:0},clip=null,editing=false,showFormulas=false,dragSel=false,fillDrag=null;
+let selMode=false,cur={r:0,c:0},anchor={r:0,c:0},clip=null,editing=false,showFormulas=false,dragSel=false,fillDrag=null;
 const ROWS=100,COLS=26;
 const uid=()=>Math.random().toString(36).slice(2,9);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -293,17 +309,17 @@ function updateBar(){}
 /* ================= selection & editing ================= */
 function td(r,c){return grid.querySelector(`td.c[data-r="${r}"][data-c="${c}"]`);}
 function select(r,c,extend=false){r=Math.max(0,Math.min(sh.rows-1,r));c=Math.max(0,Math.min(sh.cols-1,c));cur={r,c};if(!extend)anchor={r,c};renderGrid();const t=td(r,c);if(t)t.scrollIntoView({block:'nearest',inline:'nearest'});}
-grid.addEventListener('mousedown',e=>{
-  if(e.button===2)return;const rs=e.target.closest('.rs');if(rs){startResize(e,rs);return;}
+grid.addEventListener('pointerdown',e=>{
+  if(e.button===2)return;const touch=e.pointerType!=='mouse';if(touch&&!selMode){const t0=e.target.closest('td.c');if(t0&&!e.target.classList.contains('fill')&&!e.target.closest('.rs')){const r=+t0.dataset.r,c=+t0.dataset.c;if(r===cur.r&&c===cur.c&&!editing){startEdit();return;}if(editing)commitEdit();select(r,c);return;}}const rs=e.target.closest('.rs');if(rs){startResize(e,rs);return;}
   if(e.target.classList.contains('fill')){fillDrag={...selRange()};e.preventDefault();return;}
   if(e.target.dataset.chk){return;}
   const t=e.target.closest('td.c');if(t){if(editing)commitEdit();const r=+t.dataset.r,c=+t.dataset.c;if(e.shiftKey){cur={r,c};renderGrid();}else select(r,c);dragSel=true;e.preventDefault();return;}
   const th=e.target.closest('th[data-c]');if(th){if(editing)commitEdit();const c=+th.dataset.c;anchor={r:0,c};cur={r:sh.rows-1,c};renderGrid();dragSel='col';e.preventDefault();return;}
   const rh=e.target.closest('td.rh');if(rh){if(editing)commitEdit();const r=+rh.dataset.r;anchor={r,c:0};cur={r,c:sh.cols-1};renderGrid();dragSel='row';e.preventDefault();}
 });
-grid.addEventListener('mousemove',e=>{if(fillDrag){const ft=e.target.closest('td.c');if(ft)fillDrag.to={r:+ft.dataset.r,c:+ft.dataset.c};return;}if(!dragSel)return;const t=e.target.closest('td.c');const th=e.target.closest('th[data-c]');const rh=e.target.closest('td.rh');if(dragSel===true&&t){const r=+t.dataset.r,c=+t.dataset.c;if(r!==cur.r||c!==cur.c){cur={r,c};renderGrid();}}else if(dragSel==='col'&&th){cur={r:sh.rows-1,c:+th.dataset.c};renderGrid();}else if(dragSel==='row'&&rh){cur={r:+rh.dataset.r,c:sh.cols-1};renderGrid();}
+grid.addEventListener('pointermove',e=>{if(fillDrag){const ft=e.target.closest('td.c');if(ft)fillDrag.to={r:+ft.dataset.r,c:+ft.dataset.c};return;}if(!dragSel)return;const t=e.target.closest('td.c');const th=e.target.closest('th[data-c]');const rh=e.target.closest('td.rh');if(dragSel===true&&t){const r=+t.dataset.r,c=+t.dataset.c;if(r!==cur.r||c!==cur.c){cur={r,c};renderGrid();}}else if(dragSel==='col'&&th){cur={r:sh.rows-1,c:+th.dataset.c};renderGrid();}else if(dragSel==='row'&&rh){cur={r:+rh.dataset.r,c:sh.cols-1};renderGrid();}
 });
-document.addEventListener('mouseup',()=>{dragSel=false;if(fillDrag){if(fillDrag.to)doFill(fillDrag,fillDrag.to);fillDrag=null;}});
+document.addEventListener('pointerup',()=>{dragSel=false;if(fillDrag){if(fillDrag.to)doFill(fillDrag,fillDrag.to);fillDrag=null;}});
 grid.addEventListener('dblclick',e=>{const t=e.target.closest('td.c');if(t)startEdit();});
 grid.addEventListener('change',e=>{if(e.target.dataset.chk){snap();sh.cells[e.target.dataset.chk].check=e.target.checked;sh.cells[e.target.dataset.chk].v=e.target.checked;changed();renderAll();}});
 grid.addEventListener('click',e=>{const t=e.target.closest('td.c');if(!t)return;const k=ref(+t.dataset.r,+t.dataset.c);if(sh.valid[k]&&!editing){const opts=sh.valid[k];ctxMenu(e,opts.map(o=>[o,()=>{snap();setCell(+t.dataset.r,+t.dataset.c,{v:o,f:undefined});changed();renderAll();}]));}});
@@ -337,7 +353,7 @@ document.addEventListener('keydown',e=>{
   else if(k.length===1&&!e.altKey){e.preventDefault();startEdit(k);}
 });
 function lastUsed(axis,fixed){let last=0;for(const k in sh.cells){const p=parseRef(k);if(axis==='r'&&p.c===fixed)last=Math.max(last,p.r);if(axis==='c'&&p.r===fixed)last=Math.max(last,p.c);}return last;}
-function startResize(e,rs){e.preventDefault();const isC=rs.dataset.rc!==undefined;const idx=+(isC?rs.dataset.rc:rs.dataset.rr);const start=isC?e.clientX:e.clientY;const orig=isC?(sh.cw[idx]||90):(sh.rh[idx]||24);const mv=ev=>{const d=(isC?ev.clientX:ev.clientY)-start;if(isC)sh.cw[idx]=Math.max(30,orig+d);else sh.rh[idx]=Math.max(18,orig+d);renderGrid();};const up=()=>{document.removeEventListener('mousemove',mv);document.removeEventListener('mouseup',up);changed();};document.addEventListener('mousemove',mv);document.addEventListener('mouseup',up);}
+function startResize(e,rs){e.preventDefault();const isC=rs.dataset.rc!==undefined;const idx=+(isC?rs.dataset.rc:rs.dataset.rr);const start=isC?e.clientX:e.clientY;const orig=isC?(sh.cw[idx]||90):(sh.rh[idx]||24);const mv=ev=>{const d=(isC?ev.clientX:ev.clientY)-start;if(isC)sh.cw[idx]=Math.max(30,orig+d);else sh.rh[idx]=Math.max(18,orig+d);renderGrid();};const up=()=>{document.removeEventListener('pointermove',mv);document.removeEventListener('pointerup',up);changed();};document.addEventListener('pointermove',mv);document.addEventListener('pointerup',up);}
 function doFill(from,to){snap();const s=from;const rows=s.r2-s.r1+1,cols=s.c2-s.c1+1;
   const vertical=to.r>s.r2||to.r<s.r1;
   if(vertical){const dir=to.r>s.r2?1:-1;const n=Math.abs(dir>0?to.r-s.r2:s.r1-to.r);for(let c=s.c1;c<=s.c2;c++){const series=[];for(let r=s.r1;r<=s.r2;r++)series.push(cell(r,c));const numeric=series.every(x=>typeof x?.v==='number');const step=numeric&&series.length>1?series[1].v-series[0].v:1;for(let i=1;i<=n;i++){const src=series[dir>0?(i-1)%rows:rows-1-((i-1)%rows)];const r=dir>0?s.r2+i:s.r1-i;if(!src){delete sh.cells[ref(r,c)];continue;}const x={...src};if(x.f)x.f=shiftFormula(x.f,r-(dir>0?s.r1+((i-1)%rows):s.r2-((i-1)%rows)),0);else if(numeric)x.v=series[dir>0?rows-1:0].v+step*(dir>0?i:-i);else if(typeof x.v==='string'&&/\d+$/.test(x.v)&&rows===1)x.v=x.v.replace(/\d+$/,m=>String(+m+i*dir).padStart(m.length,'0'));sh.cells[ref(r,c)]=x;}}}
@@ -396,6 +412,7 @@ Object.assign(cmds,{
   formulas:()=>{showFormulas=!showFormulas;renderGrid();},rtl:()=>{sh.rtl=!sh.rtl;changed();renderGrid();},
   shortcuts:()=>{document.getElementById('scBody').innerHTML=[['Edit cell','F2 / Enter / type'],['Confirm & move down','Enter'],['Confirm & move right','Tab'],['Copy / Cut / Paste','Ctrl+C / X / V'],['Paste values','Ctrl+Shift+V'],['Undo / Redo','Ctrl+Z / Y'],['Bold / Italic / Underline','Ctrl+B / I / U'],['Fill down / right','Ctrl+D / R'],['Find & replace','Ctrl+H'],['Select all','Ctrl+A'],['Jump to edge','Ctrl+Arrow'],['Extend selection','Shift+Arrow / Shift+click'],['Delete contents','Delete'],['Save','Ctrl+S'],['Sum selection','Σ button']].map(r=>`<span>${r[0]}</span><kbd style="color:var(--muted)">${r[1]}</kbd>`).join('');document.getElementById('dlg-sc').showModal();},
   print:()=>window.print(),
+  selmode:()=>{selMode=!selMode;document.getElementById('selModeBtn').classList.toggle('on',selMode);grid.style.touchAction=selMode?'none':'';toast(selMode?'Drag on the grid to select a range':'Drag scrolls again');},
   'export-xlsx':exportXlsx,'export-csv':()=>download(book.name+'-'+sh.name+'.csv',toCSV(),'text/csv'),'export-json':()=>download(book.name+'.json',JSON.stringify(book,null,1),'application/json'),
 });
 function pasteClip(valuesOnly){if(!clip)return;snap();const s=selRange();const h=clip.r2-clip.r1+1,w=clip.c2-clip.c1+1;const reps=(s.r2-s.r1+1>=h&&s.c2-s.c1+1>=w)?{r:Math.floor((s.r2-s.r1+1)/h),c:Math.floor((s.c2-s.c1+1)/w)}:{r:1,c:1};
@@ -467,6 +484,9 @@ function parseCSV(t,sep){const rows=[];let row=[],cur='',q=false;for(let i=0;i<t
 gw.addEventListener('dragover',e=>e.preventDefault());gw.addEventListener('drop',e=>{e.preventDefault();const f=e.dataTransfer.files[0];if(!f)return;const dt=new DataTransfer();dt.items.add(f);const i=document.getElementById('fileIn');i.files=dt.files;i.dispatchEvent(new Event('change'));});
 window.addEventListener('beforeunload',save);
 
+/* mobile: long-press opens context menu */
+let lpT;grid.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse')return;const x=e.clientX,y=e.clientY;clearTimeout(lpT);lpT=setTimeout(()=>{grid.dispatchEvent(new MouseEvent('contextmenu',{clientX:x,clientY:y,bubbles:true}));},600);});
+['pointermove','pointerup','pointercancel'].forEach(ev=>grid.addEventListener(ev,()=>clearTimeout(lpT)));
 /* init */
 document.documentElement.dataset.theme=localStorage.getItem('sheets.theme')||'';
 if(!books.length){newBook('Budget example');const d=[['Item','Qty','Price','Total'],['Laptop',2,1200],['Monitor',3,350],['Keyboard',5,45],['Mouse',5,25],['','','','']];d.forEach((row,r)=>row.forEach((v,c)=>{if(v!=='')sh.cells[ref(r,c)]={v,...(r===0?{b:true,bg:'#e8f3ee'}:{}),...(c===2&&r>0?{fmt:'cur'}:{})};}));for(let r=1;r<=4;r++)sh.cells[ref(r,3)]={f:`=B${r+1}*C${r+1}`,fmt:'cur'};sh.cells.C6={v:'Grand total',b:true};sh.cells.D6={f:'=SUM(D2:D5)',fmt:'cur',b:true};sh.cells.C7={v:'Average'};sh.cells.D7={f:'=AVERAGE(D2:D5)',fmt:'cur'};sh.cells.C8={v:'Above 500'};sh.cells.D8={f:'=COUNTIF(D2:D5,">500")'};sh.cw[0]=120;sh.cw[3]=110;save();renderAll();}
